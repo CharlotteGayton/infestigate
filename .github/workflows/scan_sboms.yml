@@ -25,12 +25,18 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
+      - name: Set execute permissions for script
+        run: chmod +x ./scan-sboms.ps1
+
       # Runs a single command using the runners shell
       - name: Run PowerShell Script
         run: |
           ./scan-sboms.ps1
+
       - name: Save results
         uses: actions/upload-artifact@v3
         with:
           name: vulnerability-scan-results
           path: results.json
+
+                
