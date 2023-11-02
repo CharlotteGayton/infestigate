@@ -28,7 +28,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run PowerShell Script
         run: |
-          ./build.ps1
+          ./scan-sboms.ps1
       - name: Save results
         uses: actions/upload-artifact@v3
         with:
