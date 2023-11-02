@@ -28,9 +28,14 @@ jobs:
       - name: Set execute permissions for script
         run: chmod +x ./scan-sboms.ps1
 
+      - name: Download latest bomber.deb from GitHub release
+        run: |
+          download_url=$(curl -s https://api.github.com/repos/devops-kung-fu/bomber/releases/latest | grep 'download_url.bomber_*_linux_arm64.deb' | cut -d : -f 2,3 | tr -d \")
+          curl -L -o bomber.deb $download_url
+
       - name: Install dependencies
         run: |
-          sudo dpkg -i bomber_0.1.0_linux_arm64.deb
+          sudo dpkg -i bomber.deb
 
       # Runs a single command using the runners shell
       - name: Run PowerShell Script
