@@ -28,6 +28,10 @@ jobs:
       - name: Set execute permissions for script
         run: chmod +x ./scan-sboms.ps1
 
+      - name: Install dependencies
+        run: |
+          sudo dpkg -i bomber_0.1.0_linux_arm64.deb
+
       # Runs a single command using the runners shell
       - name: Run PowerShell Script
         run: |
