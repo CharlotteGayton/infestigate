@@ -30,7 +30,7 @@ jobs:
 
       - name: Download latest bomber.deb from GitHub release
         run: |
-          download_url=$(curl -s https://api.github.com/repos/devops-kung-fu/bomber/releases/latest | grep 'download_url.bomber_*_linux_arm64.deb' | cut -d : -f 2,3 | tr -d \")
+          download_url=$(curl -s https://api.github.com/repos/devops-kung-fu/bomber/releases/latest | grep 'bomber_.*_linux_arm64.deb' | cut -d : -f 2,3 | tr -d \")
           curl -L -o bomber.deb $download_url
 
       - name: Install dependencies
