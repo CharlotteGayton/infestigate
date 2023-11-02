@@ -1,5 +1,3 @@
-Install-Module -Name bomber -Scope CurrentUser -Force
-
 $sourceDir = 'raw'  
 $targetDir = 'raw_flatterned/'  
 
