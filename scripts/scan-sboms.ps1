@@ -1,7 +1,14 @@
-$sourceDir = 'raw'  
-$targetDir = 'raw_flatterned/'  
+$here = Split-Path -Parent $PSCommandPath
+$here = Split-Path -Parent $here
+
+$sourceDir = "$here/raw"  
+$targetDir = "$here/raw_flatterned/"  
+
+# Remove-Item raw_flatterned\* -Recurse -Force
 
 $jsonFiles = Get-ChildItem -Path $sourceDir -Filter *.json -Recurse
+
+# New-Item -Path "$here/" -Name "raw_flatterned" -ItemType "directory"
 
 foreach ($file in $jsonFiles) {
     Copy-Item -Path $file.FullName -Destination $targetDir
@@ -19,6 +26,6 @@ foreach ($file in $flatternedDirFiles){
     dotnet-covenant convert spdx $file.FullName -o $file.FullName
 }
 
-bomber scan ./raw_flatterned/ --output=json > results.json
+bomber scan $here/raw_flatterned/ --output=json > results.json
 
-Remove-Item raw_flatterned\* -Recurse -Force
+Remove-Item $here/raw_flatterned\* -Recurse -Force
