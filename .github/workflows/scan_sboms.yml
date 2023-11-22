@@ -40,7 +40,7 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run PowerShell Script
         run: |
-          ./scripts/scan-sboms.ps1
+          pwsh ./scripts/scan-sboms.ps1
 
       - name: Save results
         uses: actions/upload-artifact@v3
