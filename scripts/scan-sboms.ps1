@@ -2,7 +2,7 @@ $here = Split-Path -Parent $PSCommandPath
 $here = Split-Path -Parent $here
 
 $sourceDir = "$here/raw"  
-$targetDir = "$here/raw_flatterned/"  
+$targetDir = "$here/raw_flatterned"  
 
 # Remove-Item raw_flatterned\* -Recurse -Force
 
