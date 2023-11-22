@@ -1,4 +1,4 @@
-# !/usr/bin/env pwsh
+#!/usr/bin/env pwsh
 
 $here = Split-Path -Parent $PSCommandPath
 $here = Split-Path -Parent $here
@@ -6,11 +6,11 @@ $here = Split-Path -Parent $here
 $sourceDir = "$here/raw"  
 $targetDir = "$here/raw_flatterned"  
 
-# Remove-Item raw_flatterned\* -Recurse -Force
+if (-not (Test-Path $targetDir -PathType Container)) {
+    New-Item -ItemType Directory -Force -Path $targetDir
+}
 
 $jsonFiles = Get-ChildItem -Path $sourceDir -Filter *.json -Recurse
-
-# New-Item -Path "$here/" -Name "raw_flatterned" -ItemType "directory"
 
 foreach ($file in $jsonFiles) {
     Copy-Item -Path $file.FullName -Destination $targetDir
