@@ -48,5 +48,3 @@ jobs:
         with:
           name: vulnerability-scan-results
           path: vulnerability_scan/data/results.json
-
-          path: results.json
