@@ -30,4 +30,4 @@ foreach ($file in $flatternedDirFiles){
 
 bomber scan $here/raw_flatterned/ --output=json > results.json
 
-Remove-Item $here/raw_flatterned\* -Recurse -Force
+Remove-Item $here/raw_flatterned/* -Recurse -Force
