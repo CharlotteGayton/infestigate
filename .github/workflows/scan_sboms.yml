@@ -36,7 +36,8 @@ jobs:
       - name: Install dependencies
         run: |
           sudo dpkg -i bomber.deb
-
+          dotnet tool install covenant
+      
       # Runs a single command using the runners shell
       - name: Run PowerShell Script
         run: |
