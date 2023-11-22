@@ -46,6 +46,6 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: vulnerability-scan-results
-          path: results.json
+          path: scripts/results.json
 
                 
