@@ -1,3 +1,5 @@
+# !/usr/bin/env pwsh
+
 $here = Split-Path -Parent $PSCommandPath
 $here = Split-Path -Parent $here
 
