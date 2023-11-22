@@ -6,7 +6,7 @@ name: Scan SBOMs CI
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
+    branches: [ "main", "*" ]
   pull_request:
     branches: [ "main" ]
 
@@ -24,13 +24,29 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+      
+      - name: Set execute permissions for script
+        run: chmod +x ./vulnerability_scan/scripts/scan-sboms.ps1
 
+      - name: Download latest bomber.deb from GitHub release
+        run: |
+          download_url=$(curl -s https://api.github.com/repos/devops-kung-fu/bomber/releases/latest | grep -oe 'https.*bomber_.*_linux_amd64.deb')
+          wget "${download_url}" -O bomber.deb
+
+      - name: Install dependencies
+        run: |
+          sudo dpkg -i bomber.deb
+          dotnet tool install -g covenant
+      
       # Runs a single command using the runners shell
       - name: Run PowerShell Script
         run: |
-          ./scan-sboms.ps1
+          pwsh ./vulnerability_scan/scripts/scan-sboms.ps1
+
       - name: Save results
         uses: actions/upload-artifact@v3
         with:
           name: vulnerability-scan-results
+          path: vulnerability_scan/data/results.json
+
           path: results.json
