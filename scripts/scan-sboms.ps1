@@ -28,6 +28,6 @@ foreach ($file in $flatternedDirFiles){
     dotnet-covenant convert spdx $file.FullName -o $file.FullName
 }
 
-bomber scan $here/raw_flatterned/ --output=json > results.json
+bomber scan $here/raw_flatterned/ --output=json > $here/scripts/results.json
 
 Remove-Item $here/raw_flatterned/* -Recurse -Force
