@@ -46,10 +46,11 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: vulnerability-scan-results
-          path: vulnerability_scan/data/results.json
+          path: vulnerability_scan/artifacts/results.json
 
   analysing-vulnerability-data:
-
+    needs:
+      vulnerability-scanner
     runs-on: ubuntu-latest
 
     steps:
@@ -59,3 +60,4 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: vulnerability-scan-results
+          path: analysing_vulnerability_data/scripts/input_data/results.json 
