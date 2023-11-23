@@ -42,8 +42,20 @@ jobs:
         run: |
           pwsh ./vulnerability_scan/scripts/scan-sboms.ps1
 
-      - name: Save results
+      - name: Upload vulnerability scan results
         uses: actions/upload-artifact@v3
         with:
           name: vulnerability-scan-results
           path: vulnerability_scan/data/results.json
+
+  analysing-vulnerability-data:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download vulnerability scan results 
+        uses: actions/download-artifact@v3
+        with:
+          name: vulnerability-scan-results
