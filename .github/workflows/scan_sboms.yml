@@ -69,3 +69,11 @@ jobs:
       - name: Run Flattening Input Data PowerShell Script
         run: |
           pwsh ./vulnerability_scan/scripts/flattening-input-data.ps1
+
+      - name: Create release
+        uses: xresloader/upload-to-github-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          draft: false
+          file: "analysing_vulnerability_data/results/vulnerability_report.csv"
