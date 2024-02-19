@@ -42,8 +42,38 @@ jobs:
         run: |
           pwsh ./vulnerability_scan/scripts/scan-sboms.ps1
 
-      - name: Save results
+      - name: Upload vulnerability scan results
         uses: actions/upload-artifact@v3
         with:
           name: vulnerability-scan-results
-          path: vulnerability_scan/data/results.json
+          path: vulnerability_scan/artifacts
+
+  analysing-vulnerability-data:
+    needs:
+      vulnerability-scanner
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download vulnerability scan results 
+        uses: actions/download-artifact@v3
+        with:
+          name: vulnerability-scan-results
+          path: analysing_vulnerability_data/scripts/input_data
+
+      - name: Run Scan SBOMs PowerShell Script
+        run: |
+          pwsh ./vulnerability_scan/scripts/scan-sboms.ps1
+
+      - name: Run Flattening Input Data PowerShell Script
+        run: |
+          pwsh ./vulnerability_scan/scripts/flattening-input-data.ps1
+
+      - name: Create release
+        uses: xresloader/upload-to-github-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          draft: false
+          file: "analysing_vulnerability_data/results/vulnerability_report.csv"
