@@ -30,8 +30,8 @@ if(!($env:DATALAKE_SASTOKEN)){
 
 $newContext = New-AzStorageContext -StorageAccountName $env:DATALAKE_NAME -SasToken $env:DATALAKE_SASTOKEN
 $filesystemName = "data"
-$fileName = "analysing_vulnerability_data/results/vulnerability_report.csv"
+$fileName = "analysing_vulnerability_data/results"
 
-$destPath = "results/vulnerability_report.csv"
+$destPath = "results/"
 
 New-AzDataLakeGen2Item -Context $newContext -FileSystem $filesystemName -Path $destPath -Source $fileName  -Force | Out-Null
