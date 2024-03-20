@@ -93,3 +93,4 @@ jobs:
           DATALAKE_SASTOKEN: ${{ secrets.DATALAKE_SASTOKEN }}
         run: |
           pwsh ./publishing_results_to_datalake/publish-results-to-datalake.ps1
+          
