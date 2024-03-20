@@ -88,6 +88,6 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run PowerShell Script
         run: |
-          pwsh ./publishing_results_to_datalake/run-publish-results-to-datalake.ps1
+          pwsh ./publishing_results_to_datalake/publish-results-to-datalake.ps1
 
 
