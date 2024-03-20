@@ -30,7 +30,7 @@ $requiredModules | ForEach-Object {
 
 $newContext = New-AzStorageContext -StorageAccountName $env:DATALAKE_NAME -SasToken $env:DATALAKE_SASTOKEN
 $filesystemName = "data"
-$fileName = "analysing_vulnerability_data/results"
+$fileName = "analysing_vulnerability_data/results/"
 
 $destPath = "results/"
 
