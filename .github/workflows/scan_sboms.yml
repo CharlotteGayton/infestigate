@@ -81,7 +81,7 @@ jobs:
           file:  "analysing_vulnerability_data/results/"
 
       - name: Clean up
-        run: rm -f analysing_vulnerability_data/results
+        run: rm -f analysing_vulnerability_data/results/*
 
   publish-results-to-datalake:
     runs-on: ubuntu-latest
