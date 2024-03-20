@@ -1,4 +1,4 @@
-Import-Module 'Az.Storage'
+Install-Module Az.Storage
 
 if(!($env:DATALAKE_NAME)){
     Throw "DATALAKE_NAME environment variable is not set or is empty. Please set it before continuing."

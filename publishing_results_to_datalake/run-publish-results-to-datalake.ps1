@@ -1,3 +1,5 @@
+Install-Module Az.Storage
+
 $env:DATALAKE_NAME = "infstorageaccount"
 $env:DATALAKE_RESOURCE_GROUP_NAME = "infestigate-storage"
 $env:DATALAKE_FILESYSTEM = "data"
@@ -11,4 +13,4 @@ $env:DATALAKE_SASTOKEN = (New-AzStorageContainerSASToken -Context $storage.Conte
                             -ExpiryTime (Get-Date).AddMinutes((20)) `
                             -Permission w)
 
-./scripts/publish-results-to-datalake.ps1
+./publish-results-to-datalake/publish-results-to-datalake.ps1
