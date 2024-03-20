@@ -32,6 +32,6 @@ $newContext = New-AzStorageContext -StorageAccountName $env:DATALAKE_NAME -SasTo
 $filesystemName = "data"
 $fileName = "analysing_vulnerability_data/results/vulnerability_report.csv"
 
-$destPath = "results/"
+$destPath = "results"
 
 New-AzDataLakeGen2Item -Context $newContext -FileSystem $filesystemName -Path $destPath -Source $fileName  -Force | Out-Null
