@@ -15,65 +15,82 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  vulnerability-scanner:
-    # The type of runner that the job will run on
+  # vulnerability-scanner:
+  #   # The type of runner that the job will run on
+  #   runs-on: ubuntu-latest
+
+  #   # Steps represent a sequence of tasks that will be executed as part of the job
+  #   steps:
+  #     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+  #     - uses: actions/checkout@v3
+      
+  #     - name: Set execute permissions for script
+  #       run: chmod +x ./vulnerability_scan/scripts/scan-sboms.ps1
+
+  #     - name: Download latest bomber.deb from GitHub release
+  #       run: |
+  #         download_url=$(curl -s https://api.github.com/repos/devops-kung-fu/bomber/releases/latest | grep -oe 'https.*bomber_.*_linux_amd64.deb')
+  #         wget "${download_url}" -O bomber.deb
+
+  #     - name: Install dependencies
+  #       run: |
+  #         sudo dpkg -i bomber.deb
+  #         dotnet tool install -g covenant
+      
+  #     # Runs a single command using the runners shell
+  #     - name: Run PowerShell Script
+  #       run: |
+  #         pwsh ./vulnerability_scan/scripts/scan-sboms.ps1
+
+  #     - name: Upload vulnerability scan results
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         name: vulnerability-scan-results
+  #         path: vulnerability_scan/artifacts
+
+  # analysing-vulnerability-data:
+  #   needs:
+  #     vulnerability-scanner
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - uses: actions/checkout@v3
+
+  #     - name: Download vulnerability scan results 
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         name: vulnerability-scan-results
+  #         path: analysing_vulnerability_data/scripts/input_data
+
+  #     - name: Run Scan SBOMs PowerShell Script
+  #       run: |
+  #         pwsh ./vulnerability_scan/scripts/scan-sboms.ps1
+
+  #     - name: Run Flattening Input Data PowerShell Script
+  #       run: |
+  #         pwsh ./vulnerability_scan/scripts/flattening-input-data.ps1
+
+  #     - name: Create release
+  #       uses: xresloader/upload-to-github-release@v1
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       with:
+  #         draft: false
+  #         file:  "analysing_vulnerability_data/results/"
+
+  publish-results-to-datalake:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    # needs:
+    #   analysing-vulnerability-data
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      
-      - name: Set execute permissions for script
-        run: chmod +x ./vulnerability_scan/scripts/scan-sboms.ps1
 
-      - name: Download latest bomber.deb from GitHub release
-        run: |
-          download_url=$(curl -s https://api.github.com/repos/devops-kung-fu/bomber/releases/latest | grep -oe 'https.*bomber_.*_linux_amd64.deb')
-          wget "${download_url}" -O bomber.deb
-
-      - name: Install dependencies
-        run: |
-          sudo dpkg -i bomber.deb
-          dotnet tool install -g covenant
-      
       # Runs a single command using the runners shell
       - name: Run PowerShell Script
-        run: |
-          pwsh ./vulnerability_scan/scripts/scan-sboms.ps1
-
-      - name: Upload vulnerability scan results
-        uses: actions/upload-artifact@v3
-        with:
-          name: vulnerability-scan-results
-          path: vulnerability_scan/artifacts
-
-  analysing-vulnerability-data:
-    needs:
-      vulnerability-scanner
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Download vulnerability scan results 
-        uses: actions/download-artifact@v3
-        with:
-          name: vulnerability-scan-results
-          path: analysing_vulnerability_data/scripts/input_data
-
-      - name: Run Scan SBOMs PowerShell Script
-        run: |
-          pwsh ./vulnerability_scan/scripts/scan-sboms.ps1
-
-      - name: Run Flattening Input Data PowerShell Script
-        run: |
-          pwsh ./vulnerability_scan/scripts/flattening-input-data.ps1
-
-      - name: Create release
-        uses: xresloader/upload-to-github-release@v1
+        shell: pwsh
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          draft: false
-          file:  "analysing_vulnerability_data/results/"
+          DATALAKE_NAME: ${{ vars.DATALAKE_NAME }}
+          DATALAKE_SASTOKEN: ${{ secrets.DATALAKE_SASTOKEN }}
+        run: |
+          pwsh ./publishing_results_to_datalake/publish-results-to-datalake.ps1
+          
