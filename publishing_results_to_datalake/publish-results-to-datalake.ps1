@@ -1,4 +1,29 @@
-Install-Module Az.Storage
+$requiredModules = @(
+    @{Name="Az.Storage"; Version="5.3.0"}
+)
+$requiredModules | ForEach-Object {
+    $name = $_.Name
+    $version = $_.Version
+    if ( !(Get-Module -ListAvailable $name | ? { $_.Version -eq ($version -split "-")[0] }) ) {
+        $splat = @{
+            Name=$name
+            RequiredVersion=$version
+            Scope="CurrentUser"
+            Repository="PSGallery"
+            Force=$true
+            AllowPrerelease=$version.Contains("-")
+        }
+        Install-Module @splat
+    }
+    if (!(Get-Module $name)) {
+        # Lookup the required version of the installed module to get the path to the module manifest
+        Import-Module (Get-Module -ListAvailable $name | ? { $_.Version -eq ($version -split "-")[0] } | Select -ExpandProperty Path)
+    }
+}
+
+$env:DATALAKE_NAME = "infstorageaccount"
+$env:DATALAKE_RESOURCE_GROUP_NAME = "infestigate-storage"
+$env:DATALAKE_FILESYSTEM = "data"
 
 if(!($env:DATALAKE_NAME)){
     Throw "DATALAKE_NAME environment variable is not set or is empty. Please set it before continuing."
