@@ -87,6 +87,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run PowerShell Script
+        shell: pwsh
         env:
           DATALAKE_NAME: ${{ vars.DATALAKE_NAME }}
           DATALAKE_SASTOKEN: ${{ secrets.DATALAKE_SASTOKEN }}
