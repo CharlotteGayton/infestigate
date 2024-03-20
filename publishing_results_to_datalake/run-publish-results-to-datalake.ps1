@@ -1,5 +1,5 @@
-Install-Module Az
-Import-Module Az
+Install-Module Az.Storage
+Import-Module Az.Storage
 
 $env:DATALAKE_NAME = "infstorageaccount"
 $env:DATALAKE_RESOURCE_GROUP_NAME = "infestigate-storage"
