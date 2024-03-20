@@ -21,10 +21,6 @@ $requiredModules | ForEach-Object {
     }
 }
 
-$env:DATALAKE_NAME = "infstorageaccount"
-$env:DATALAKE_RESOURCE_GROUP_NAME = "infestigate-storage"
-$env:DATALAKE_FILESYSTEM = "data"
-
 if(!($env:DATALAKE_NAME)){
     Throw "DATALAKE_NAME environment variable is not set or is empty. Please set it before continuing."
 }
