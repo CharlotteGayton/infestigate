@@ -77,3 +77,17 @@ jobs:
         with:
           draft: false
           file:  "analysing_vulnerability_data/results/"
+
+  publish-results-to-datalake:
+    runs-on: ubuntu-latest
+    needs:
+      analysing-vulnerability-data
+    steps:
+      - uses: actions/checkout@v3
+
+      # Runs a single command using the runners shell
+      - name: Run PowerShell Script
+        run: |
+          pwsh ./publishing_results_to_datalake/run-publish-results-to-datalake.ps1
+
+
