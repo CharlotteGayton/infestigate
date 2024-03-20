@@ -97,8 +97,8 @@ jobs:
         run: |
           pwsh ./publishing_results_to_datalake/publish-results-to-datalake.ps1
 
-  generate-report:
-    runs-on: ubuntu-latest
+  # generate-report:
+  #   runs-on: ubuntu-latest
     
   
           
