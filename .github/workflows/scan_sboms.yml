@@ -53,8 +53,8 @@ jobs:
           path: vulnerability_scan/artifacts
 
   analysing-vulnerability-data:
-    # needs:
-      # vulnerability-scanner
+    needs:
+      vulnerability-scanner
     runs-on: ubuntu-latest
 
     steps:
