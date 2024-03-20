@@ -67,7 +67,9 @@ jobs:
           path: analysing_vulnerability_data/scripts/input_data
 
       - name: Run analysing data Python script 
-        run: python3 analysing_vulnerability_data/scripts/analysing_data.py
+        run: |
+          pip install pandas 
+          python3 analysing_vulnerability_data/scripts/analysing_data.py
         shell: sh
 
       - name: Create release
