@@ -66,9 +66,9 @@ jobs:
           name: vulnerability-scan-results
           path: analysing_vulnerability_data/scripts/input_data
 
-      - uses: yaananth/run-notebook@v2
-        with:
-          notebook: "analysing_vulnerabilitiy_data/analysing_data.ipynb"
+      - name: Run analysing data Python script 
+        run: python3 analysing_vulnerability_data/scripts/analysing_data.py
+        shell: sh
 
       - name: Create release
         uses: xresloader/upload-to-github-release@v1
