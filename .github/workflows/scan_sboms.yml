@@ -56,13 +56,9 @@ jobs:
           name: vulnerability-scan-results
           path: analysing_vulnerability_data/scripts/input_data
 
-      - name: Run Scan SBOMs PowerShell Script
+      - name: Run Analysing Data Python Script
         run: |
-          pwsh ./vulnerability_scan/scripts/scan-sboms.ps1
-
-      - name: Run Flattening Input Data PowerShell Script
-        run: |
-          pwsh ./vulnerability_scan/scripts/flattening-input-data.ps1
+          python3 ./analysing_vulnerability_data/scripts/analysing_data.py
 
       - name: Create release
         uses: xresloader/upload-to-github-release@v1
