@@ -31,7 +31,7 @@ jobs:
         run: |
           curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin v0.50.1
           dotnet tool install -g covenant
-          
+
       # Runs a single command using the runners shell
       - name: Run PowerShell Script
         run: |
@@ -56,6 +56,10 @@ jobs:
         with:
           name: vulnerability-scan-results
           path: analysing_vulnerability_data/scripts/input_data
+
+      - name: Install Dependencies
+        run: |
+          pip install pandas
 
       - name: Run Analysing Data Python Script
         run: |
