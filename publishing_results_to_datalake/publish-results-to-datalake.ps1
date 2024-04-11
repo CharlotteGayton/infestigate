@@ -31,10 +31,10 @@ if(!($env:DATALAKE_SASTOKEN)){
 $newContext = New-AzStorageContext -StorageAccountName $env:DATALAKE_NAME -SasToken $env:DATALAKE_SASTOKEN
 $filesystemName = "data"
 $fileNames = @{
-    "analysing_vulnerability_data/results/summary_report.csv" = "results/summary_report.csv";
-    "analysing_vulnerability_data/results/summary_report.json" = "results/summary_report.json";
-    "analysing_vulnerability_data/results/vulnerability_report.csv" = "results/vulnerability_report.csv";
-    "analysing_vulnerability_data/results/vulnerability_report.json" = "results/vulnerability_report.json"
+    "publishing_results_to_datalake/results/summary_report.csv" = "results/summary_report.csv";
+    "publishing_results_to_datalake/results/summary_report.json" = "results/summary_report.json";
+    "publishing_results_to_datalake/results/vulnerability_report.csv" = "results/vulnerability_report.csv";
+    "publishing_results_to_datalake/results/vulnerability_report.json" = "results/vulnerability_report.json"
 }
 
 foreach($Key in $fileNames.Keys){
