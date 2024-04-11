@@ -56,7 +56,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: vulnerability-scan-results
-          path: analysing_vulnerability_data/scripts/input_data
+          path: analysing_vulnerability_data/input_data
 
       - name: Install Dependencies
         run: |
