@@ -90,8 +90,8 @@ jobs:
       - name: Download vulnerability scan results 
         uses: actions/download-artifact@v3
         with:
-          name: vulnerability-scan-results
-          path: publishing_results_to_datalake/results//
+          name: security-analysis-results
+          path: publishing_results_to_datalake/results/
 
       # Runs a single command using the runners shell
       - name: Run PowerShell Script
