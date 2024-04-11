@@ -41,7 +41,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: vulnerability-scan-results
-          path: vulnerability_scan/artifacts
+          path: vulnerability_scan/artifacts/*
 
   analysing-vulnerability-data:
     needs:
