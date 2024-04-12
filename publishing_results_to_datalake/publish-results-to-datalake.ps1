@@ -30,14 +30,18 @@ if(!($env:DATALAKE_SASTOKEN)){
 
 $newContext = New-AzStorageContext -StorageAccountName $env:DATALAKE_NAME -SasToken $env:DATALAKE_SASTOKEN
 $filesystemName = "data"
-$fileName = "analysing_vulnerability_data/results/vulnerability_report.csv"
+$fileNames = @{
+    "publishing_results_to_datalake/results/summary_report.csv" = "results/summary_report.csv";
+    "publishing_results_to_datalake/results/summary_report.json" = "results/summary_report.json";
+    "publishing_results_to_datalake/results/vulnerability_report.csv" = "results/vulnerability_report.csv";
+    "publishing_results_to_datalake/results/vulnerability_report.json" = "results/vulnerability_report.json";
+    "publishing_results_to_datalake/results/vulnerability_report_simplified.csv" = "results/vulnerability_report_simplified.csv";
+    "publishing_results_to_datalake/results/vulnerability_report_simplified.json" = "results/vulnerability_report_simplified.json"
+}
 
-$destPath = "results/vulnerability_report.csv"
+foreach($Key in $fileNames.Keys){
+    $fileName = $Key
+    $destPath = $fileNames[$Key]
 
-New-AzDataLakeGen2Item -Context $newContext -FileSystem $filesystemName -Path $destPath -Source $fileName  -Force | Out-Null
-
-$fileName = "analysing_vulnerability_data/results/summary_report.csv"
-
-$destPath = "results/summary_report.csv"
-
-New-AzDataLakeGen2Item -Context $newContext -FileSystem $filesystemName -Path $destPath -Source $fileName  -Force | Out-Null
+    New-AzDataLakeGen2Item -Context $newContext -FileSystem $filesystemName -Path $destPath -Source $fileName  -Force | Out-Null
+}
