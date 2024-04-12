@@ -34,7 +34,9 @@ $fileNames = @{
     "publishing_results_to_datalake/results/summary_report.csv" = "results/summary_report.csv";
     "publishing_results_to_datalake/results/summary_report.json" = "results/summary_report.json";
     "publishing_results_to_datalake/results/vulnerability_report.csv" = "results/vulnerability_report.csv";
-    "publishing_results_to_datalake/results/vulnerability_report.json" = "results/vulnerability_report.json"
+    "publishing_results_to_datalake/results/vulnerability_report.json" = "results/vulnerability_report.json";
+    "publishing_results_to_datalake/results/vulnerability_report_simplified.csv" = "results/vulnerability_report_simplified.csv";
+    "publishing_results_to_datalake/results/vulnerability_report_simplified.json" = "results/vulnerability_report_simplified.json"
 }
 
 foreach($Key in $fileNames.Keys){
