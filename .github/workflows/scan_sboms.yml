@@ -34,6 +34,9 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run PowerShell Script
+        env:
+          DATALAKE_NAME: ${{ vars.DATALAKE_NAME }}
+          DATALAKE_SASTOKEN: ${{ secrets.DATALAKE_SASTOKEN }}
         run: |
           pwsh ./vulnerability_scan/scripts/scan-sboms.ps1
           pwsh ./vulnerability_scan/scripts//flattening-input-data.ps1
