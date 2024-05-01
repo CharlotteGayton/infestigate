@@ -31,6 +31,11 @@ jobs:
         run: |
           curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin v0.50.1
           dotnet tool install -g covenant
+      
+      - name: Perform a Pester test from the Tests.ps1 file
+        shell: pwsh
+        run: |
+          Invoke-Pester vulnerability_scan/scripts/flattening-input-data.Tests.ps1 -Passthru
 
       # Runs a single command using the runners shell
       - name: Run PowerShell Script
