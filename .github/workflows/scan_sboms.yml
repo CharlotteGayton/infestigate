@@ -36,6 +36,7 @@ jobs:
       - name: Run PowerShell Script
         run: |
           pwsh ./vulnerability_scan/scripts//flattening-input-data.ps1
+          pwsh Invoke-Pester vulnerability_scan/scripts/flattening-input-data.Tests.ps1 -Passthru
           pwsh ./vulnerability_scan/scripts/scan-sboms.ps1
 
       - name: Upload vulnerability scan results
